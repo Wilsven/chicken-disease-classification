@@ -20,3 +20,10 @@ class BaseModelConfig:
     include_top: bool
     weights: str
     classes: int
+
+
+@dataclass(frozen=True)
+class CallbacksConfig:
+    root_dir: Path
+    tensorboard_log_dir: Path
+    checkpoints_file_path: Path

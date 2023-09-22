@@ -1,6 +1,7 @@
 from chicken_disease_classification.constants import *
 from chicken_disease_classification.entity.config_entity import (
     BaseModelConfig,
+    CallbacksConfig,
     DataIngestionConfig,
 )
 from chicken_disease_classification.utils.common import create_directories, read_yaml
@@ -57,3 +58,18 @@ class ConfigurationManager:
         )
 
         return base_model_config
+
+    def get_callbacks_config(self) -> CallbacksConfig:
+        callbacks_preparation = self.config.callbacks_preparation
+
+        create_directories(
+            [callbacks_preparation.root_dir, callbacks_preparation.tensorboard_log_dir]
+        )
+
+        callbacks_config = CallbacksConfig(
+            root_dir=Path(callbacks_preparation.root_dir),
+            tensorboard_log_dir=Path(callbacks_preparation.tensorboard_log_dir),
+            checkpoints_file_path=Path(callbacks_preparation.checkpoints_file_path),
+        )
+
+        return callbacks_config
