@@ -1,5 +1,6 @@
 import logging
 import os
+import sys
 from datetime import datetime
 
 LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
@@ -14,7 +15,12 @@ if not os.path.exists(os.path.join(LOGS_PATH, ".gitkeep")):
         pass
 
 logging.basicConfig(
-    filename=LOG_FILE_PATH,
     level=logging.INFO,
     format="[ %(asctime)s ] %(lineno)d %(module)s %(name)s -  %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_FILE_PATH),
+        logging.StreamHandler(sys.stdout),
+    ],
 )
+
+logger = logging.getLogger("chicken-disease-logger")

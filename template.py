@@ -1,9 +1,9 @@
 import os
 from pathlib import Path
+
 from logger import logging
 
-
-PROJECT_NAME = "chicken-disease-classifier"
+PROJECT_NAME = "chicken_disease_classification"
 
 FILE_PATHS = [
     ".github/workflows/.gitkeep",
@@ -16,11 +16,13 @@ FILE_PATHS = [
     f"src/{PROJECT_NAME}/entity/__init__.py",
     f"src/{PROJECT_NAME}/constants/__init__.py",
     "config/config.yaml",
+    "main.py",
     "dvc.yaml",
     "params.yaml",
     "requirements.txt",
     "setup.py",
     "research/trials.ipynb",
+    "templates/index.html",
 ]
 
 for file_path in FILE_PATHS:

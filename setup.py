@@ -1,5 +1,4 @@
-from setuptools import setup, find_packages
-
+from setuptools import find_packages, setup
 
 with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
@@ -8,7 +7,7 @@ __version__ = "0.0.0"
 
 REPO_NAME = "chicken-disease-classification"
 AUTHOR = "Wilsven"
-SRC_REPO = "chicken-disease-classification"
+SRC_REPO = "chicken_disease_classification"
 AUTHOR_EMAIL = "wilsven_leong96@hotmail.co.uk"
 
 setup(
