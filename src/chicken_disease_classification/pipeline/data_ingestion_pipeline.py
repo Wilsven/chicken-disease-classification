@@ -1,9 +1,8 @@
+from chicken_disease_classification import logger
 from chicken_disease_classification.components.data_ingestion import DataIngestion
 from chicken_disease_classification.config.configuration import ConfigurationManager
-from chicken_disease_classification import logger
 
-
-STAGE_NAME = "Data Ingestion Pipeline"
+STAGE_NAME_01 = "Data Ingestion Pipeline"
 
 
 class DataIngestionPipeline:
@@ -20,10 +19,10 @@ class DataIngestionPipeline:
 
 if __name__ == "__main__":
     try:
-        logger.info(f"{STAGE_NAME} has started")
+        logger.info(f"{STAGE_NAME_01} has started")
         data_ingestion_pipeline = DataIngestionPipeline()
         data_ingestion_pipeline.forward()
-        logger.info(f"{STAGE_NAME} has completed")
+        logger.info(f"{STAGE_NAME_01} has completed")
     except Exception as e:
         logger.exception(e)
         raise e

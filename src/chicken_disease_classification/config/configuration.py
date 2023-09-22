@@ -1,5 +1,8 @@
 from chicken_disease_classification.constants import *
-from chicken_disease_classification.entity.config_entity import DataIngestionConfig
+from chicken_disease_classification.entity.config_entity import (
+    BaseModelConfig,
+    DataIngestionConfig,
+)
 from chicken_disease_classification.utils.common import create_directories, read_yaml
 
 
@@ -27,10 +30,30 @@ class ConfigurationManager:
         create_directories([data_ingestion.root_dir])
 
         data_ingestion_config = DataIngestionConfig(
-            root_dir=data_ingestion.root_dir,
-            source_url=data_ingestion.source_url,
-            local_data_file=data_ingestion.local_data_file,
-            unzip_dir=data_ingestion.unzip_dir,
+            root_dir=Path(data_ingestion.root_dir),
+            source_url=str(data_ingestion.source_url),
+            local_data_file=Path(data_ingestion.local_data_file),
+            unzip_dir=Path(data_ingestion.unzip_dir),
         )
 
         return data_ingestion_config
+
+    def get_base_model_config(self) -> BaseModelConfig:
+        base_model_preparation = self.config.base_model_preparation
+
+        create_directories([base_model_preparation.root_dir])
+
+        base_model_config = BaseModelConfig(
+            root_dir=Path(base_model_preparation.root_dir),
+            base_model_path=Path(base_model_preparation.base_model_path),
+            updated_base_model_path=Path(
+                base_model_preparation.updated_base_model_path
+            ),
+            image_size=self.params.IMAGE_SIZE,
+            learning_rate=self.params.LEARNING_RATE,
+            include_top=self.params.INCLUDE_TOP,
+            weights=self.params.WEIGHTS,
+            classes=self.params.CLASSES,
+        )
+
+        return base_model_config

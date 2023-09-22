@@ -8,3 +8,15 @@ class DataIngestionConfig:
     source_url: str
     local_data_file: Path
     unzip_dir: Path
+
+
+@dataclass(frozen=True)
+class BaseModelConfig:
+    root_dir: Path
+    base_model_path: Path
+    updated_base_model_path: Path
+    image_size: list
+    learning_rate: float
+    include_top: bool
+    weights: str
+    classes: int

@@ -44,7 +44,7 @@ def create_directories(path_to_directories: list, verbose: bool = True):
     """Creates directories from a list of paths.
 
     Args:
-        path_to_directories (list[Path]): A list of paths.
+        path_to_directories (list): A list of paths.
         verbose (bool, optional): If True, logs the process. Defaults to True.
     """
     for path in path_to_directories:
