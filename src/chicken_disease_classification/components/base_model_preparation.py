@@ -11,6 +11,7 @@ class BaseModel:
         self.base_model_config = config
 
     def get_base_model(self):
+        """Downloads the pretrained model and save it."""
         self.model = tf.keras.applications.vgg16.VGG16(
             input_shape=self.base_model_config.image_size,
             weights=self.base_model_config.weights,
@@ -26,7 +27,23 @@ class BaseModel:
         learning_rate: float,
         freeze_all: Optional[bool] = True,
         freeze_till: Optional[int] = None,
-    ):
+    ) -> tf.keras.Model:
+        """Modifies the head of the pretrained model to fit our classification task.
+
+        We can choose to either freeze all or some layers of the pretrained model. The
+        head of the pretrained model is also swapped out so it predicts the appropriate
+        number of classes.
+
+        Args:
+            model (tf.keras.Model): The pretrained model.
+            classes (int): The number of classes we are predicting.
+            learning_rate (float): Learning rate of the training process.
+            freeze_all (Optional[bool], optional): Freezes all layersm making them untrainable. Defaults to True.
+            freeze_till (Optional[int], optional): Freezes early layers up to a certain layer. Defaults to None.
+
+        Returns:
+            tf.keras.Model: Returns the updated model ready to be fine-tuned.
+        """
         if freeze_all:
             for layer in model.layers:
                 layer.trainable = False
@@ -41,7 +58,7 @@ class BaseModel:
         )(flatten_in)
 
         full_model = tf.keras.models.Model(
-            inputs=model.output,
+            inputs=model.input,
             outputs=prediction,
         )
 
@@ -56,6 +73,7 @@ class BaseModel:
         return full_model
 
     def update_base_model(self):
+        """Prepares the model to be fine-tuned and save it."""
         self.full_model = self._prepare_full_model(
             model=self.model,
             classes=self.base_model_config.classes,
@@ -70,4 +88,5 @@ class BaseModel:
 
     @staticmethod
     def save_model(path: Path, model: tf.keras.Model):
+        """Method to save the model."""
         model.save(path)

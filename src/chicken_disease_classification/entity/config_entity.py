@@ -27,3 +27,15 @@ class CallbacksConfig:
     root_dir: Path
     tensorboard_log_dir: Path
     checkpoints_file_path: Path
+
+
+@dataclass(frozen=True)
+class TrainingConfig:
+    root_dir: Path
+    trained_model_path: Path
+    updated_base_model_path: Path
+    training_data: Path
+    epochs: int
+    batch_size: int
+    augmentation: bool
+    image_size: list

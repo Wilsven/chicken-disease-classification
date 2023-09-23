@@ -1,6 +1,9 @@
 *jpg
 *.csv
-artifacts/*/*
+*.h5
+*.zip
+events.out.tfevents*
+artifacts/*/*/*/*/*/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

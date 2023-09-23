@@ -1,5 +1,6 @@
 import os
 import time
+
 import tensorflow as tf
 
 from chicken_disease_classification.entity.config_entity import CallbacksConfig
@@ -11,14 +12,17 @@ class Callbacks:
 
     @property
     def _create_tb_callbacks(self):
+        "Creates tensorboard logs of training and validation and saves them."
         timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
         tb_running_log_dir = os.path.join(
             self.callbacks_config.tensorboard_log_dir, f"tb_logs_at_{timestamp}"
         )
+
         return tf.keras.callbacks.TensorBoard(log_dir=tb_running_log_dir)
 
     @property
     def _create_ckpt_callbacks(self):
+        "Saves the best model at the checkpoint directory."
         return tf.keras.callbacks.ModelCheckpoint(
             filepath=str(self.callbacks_config.checkpoints_file_path),
             save_best_only=True,

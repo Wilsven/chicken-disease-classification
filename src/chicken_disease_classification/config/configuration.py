@@ -1,8 +1,11 @@
+import os
+
 from chicken_disease_classification.constants import *
 from chicken_disease_classification.entity.config_entity import (
     BaseModelConfig,
     CallbacksConfig,
     DataIngestionConfig,
+    TrainingConfig,
 )
 from chicken_disease_classification.utils.common import create_directories, read_yaml
 
@@ -20,8 +23,8 @@ class ConfigurationManager:
 
     def get_data_ingestion_config(self) -> DataIngestionConfig:
         """
-        Creates the root directory and returns
-        the configuration for data ingestion.
+        Creates the root directory if it doesn't already exist
+        and returns the configuration for data ingestion.
 
         Returns:
             DataIngestionConfig: Configuration for data ingestion.
@@ -40,7 +43,15 @@ class ConfigurationManager:
         return data_ingestion_config
 
     def get_base_model_config(self) -> BaseModelConfig:
+        """
+        Creates the root directory if it doesn't already exist
+        and returns the configuration for the base model.
+
+        Returns:
+            BaseModelConfig: Configuration for base model.
+        """
         base_model_preparation = self.config.base_model_preparation
+        params = self.params
 
         create_directories([base_model_preparation.root_dir])
 
@@ -50,16 +61,23 @@ class ConfigurationManager:
             updated_base_model_path=Path(
                 base_model_preparation.updated_base_model_path
             ),
-            image_size=self.params.IMAGE_SIZE,
-            learning_rate=self.params.LEARNING_RATE,
-            include_top=self.params.INCLUDE_TOP,
-            weights=self.params.WEIGHTS,
-            classes=self.params.CLASSES,
+            image_size=params.IMAGE_SIZE,
+            learning_rate=params.LEARNING_RATE,
+            include_top=params.INCLUDE_TOP,
+            weights=params.WEIGHTS,
+            classes=params.CLASSES,
         )
 
         return base_model_config
 
     def get_callbacks_config(self) -> CallbacksConfig:
+        """
+        Creates the root directory and tensorboard log directory if they
+        don't already exist and returns the configuration for the callbacks.
+
+        Returns:
+            CallbacksConfig: Configuration for callbacks.
+        """
         callbacks_preparation = self.config.callbacks_preparation
 
         create_directories(
@@ -73,3 +91,36 @@ class ConfigurationManager:
         )
 
         return callbacks_config
+
+    def get_model_training_config(self) -> TrainingConfig:
+        """
+        Creates the root directory if it doesn't already exist
+        and returns the configuration for model training.
+
+        Returns:
+            TrainingConfig: Configuration for model training.
+        """
+        model_training = self.config.model_training
+        base_model_preparation = self.config.base_model_preparation
+        params = self.params
+
+        training_data = os.path.join(
+            self.config.data_ingestion.unzip_dir, "Chicken-fecal-images"
+        )
+
+        create_directories([model_training.root_dir])
+
+        model_training_config = TrainingConfig(
+            root_dir=Path(model_training.root_dir),
+            trained_model_path=Path(model_training.trained_model_path),
+            updated_base_model_path=Path(
+                base_model_preparation.updated_base_model_path
+            ),
+            training_data=Path(training_data),
+            epochs=params.EPOCHS,
+            batch_size=params.BATCH_SIZE,
+            augmentation=params.AUGMENTATION,
+            image_size=params.IMAGE_SIZE,
+        )
+
+        return model_training_config

@@ -10,6 +10,7 @@ class BaseModelPreparationPipeline:
         pass
 
     def forward(self):
+        """Runs the base model preparation pipeline."""
         config_manager = ConfigurationManager()
         base_model_config = config_manager.get_base_model_config()
         base_model = BaseModel(config=base_model_config)

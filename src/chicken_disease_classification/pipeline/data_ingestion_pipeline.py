@@ -10,6 +10,7 @@ class DataIngestionPipeline:
         pass
 
     def forward(self):
+        """Runs the data ingestion pipeline."""
         config_manager = ConfigurationManager()
         data_ingestion_config = config_manager.get_data_ingestion_config()
         data_ingestion = DataIngestion(config=data_ingestion_config)
