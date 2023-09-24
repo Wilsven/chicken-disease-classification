@@ -1,7 +1,6 @@
+from chicken_disease_classification import *
 from chicken_disease_classification.components.evaluation import Evaluation
 from chicken_disease_classification.config.configuration import ConfigurationManager
-
-from chicken_disease_classification import *
 
 STAGE_NAME_04 = "Evaluation Pipeline"
 
