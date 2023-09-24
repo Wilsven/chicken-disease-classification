@@ -1,0 +1,52 @@
+stages:
+  data_ingestion:
+    cmd: python src/chicken_disease_classification/pipeline/data_ingestion_pipeline.py
+    deps:
+      - src/chicken_disease_classification/pipeline/data_ingestion_pipeline.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/Chicken-fecal-images
+
+  base_model_preparation:
+    cmd: python src/chicken_disease_classification/pipeline/base_model_preparation_pipeline.py
+    deps:
+      - src/chicken_disease_classification/pipeline/base_model_preparation_pipeline.py
+      - config/config.yaml
+    params:
+      - IMAGE_SIZE
+      - LEARNING_RATE
+      - INCLUDE_TOP
+      - WEIGHTS
+      - CLASSES
+    outs:
+      - artifacts/base_model
+
+  model_training:
+    cmd: python src/chicken_disease_classification/pipeline/model_training_pipeline.py
+    deps:
+      - src/chicken_disease_classification/pipeline/model_training_pipeline.py
+      - src/chicken_disease_classification/components/callbacks_preparation.py
+      - artifacts/data_ingestion/Chicken-fecal-images
+      - artifacts/base_model
+      - config/config.yaml
+    params:
+      - EPOCHS
+      - BATCH_SIZE
+      - AUGMENTATION
+      - IMAGE_SIZE
+    outs:
+      - artifacts/model_training/model.h5
+
+  evaluation:
+    cmd: python src/chicken_disease_classification/pipeline/evaluation_pipeline.py
+    deps:
+      - src/chicken_disease_classification/pipeline/evaluation_pipeline.py
+      - artifacts/data_ingestion/Chicken-fecal-images
+      - artifacts/model_training/model.h5
+      - config/config.yaml
+    params:
+      - IMAGE_SIZE
+      - BATCH_SIZE
+    metrics:
+      - scores.json:
+          cache: false

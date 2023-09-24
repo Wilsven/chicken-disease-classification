@@ -5,6 +5,7 @@ from chicken_disease_classification.entity.config_entity import (
     BaseModelConfig,
     CallbacksConfig,
     DataIngestionConfig,
+    EvaluationConfig,
     TrainingConfig,
 )
 from chicken_disease_classification.utils.common import create_directories, read_yaml
@@ -124,3 +125,18 @@ class ConfigurationManager:
         )
 
         return model_training_config
+
+    def get_evaluation_config(self) -> EvaluationConfig:
+        training_data = os.path.join(
+            self.config.data_ingestion.unzip_dir, "Chicken-fecal-images"
+        )
+
+        evaluation_config = EvaluationConfig(
+            path_to_model=Path(self.config.model_training.trained_model_path),
+            training_data=Path(training_data),
+            all_params=self.params,
+            image_size=self.params.IMAGE_SIZE,
+            batch_size=self.params.BATCH_SIZE,
+        )
+
+        return evaluation_config

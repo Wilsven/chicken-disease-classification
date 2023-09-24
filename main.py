@@ -7,6 +7,10 @@ from chicken_disease_classification.pipeline.data_ingestion_pipeline import (
     STAGE_NAME_01,
     DataIngestionPipeline,
 )
+from chicken_disease_classification.pipeline.evaluation_pipeline import (
+    STAGE_NAME_04,
+    EvaluationPipeline,
+)
 from chicken_disease_classification.pipeline.model_training_pipeline import (
     STAGE_NAME_03,
     ModelTrainingPipeline,
@@ -27,6 +31,11 @@ try:
     model_training_pipeline = ModelTrainingPipeline()
     model_training_pipeline.forward()
     logger.info(f"{STAGE_NAME_03} has completed")
+
+    logger.info(f"{STAGE_NAME_04} has started")
+    evaluation_pipeline = EvaluationPipeline()
+    evaluation_pipeline.forward()
+    logger.info(f"{STAGE_NAME_04} has completed")
 
 except Exception as e:
     logger.exception(e)
