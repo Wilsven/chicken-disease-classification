@@ -49,7 +49,7 @@ python app.py
 2. dvc repro
 3. dvc dag
 
-# AWS CI/CD Deployment with GitHub Actions
+# CI/CD Deployment with GitHub Actions with AWS
 
 ## 1. Login to AWS Console
 
@@ -104,37 +104,37 @@ python app.py
 
     newgrp docker
 
-# 6. Configure EC2 as Self-hosted Runner:
+# 6. Configure EC2 as Self-hosted Runner
 
     Settings > Actions > Runner > New self-hosted runner > Select Linux > Execute commands one by one in your Virtual Machine
 
-# 7. Setup GitHub Secrets:
+# 7. Setup GitHub Secrets
 
-    AWS_ACCESS_KEY_ID=
+    AWS_ACCESS_KEY_ID
 
-    AWS_SECRET_ACCESS_KEY=
+    AWS_SECRET_ACCESS_KEY
 
-    AWS_REGION=us-east-1
+    AWS_REGION
 
-    AWS_ECR_LOGIN_URI=demo >> 566373416292.dkr.ecr.ap-south-1.amazonaws.com
+    AWS_ECR_LOGIN_URI
 
-    ECR_REPOSITORY_NAME=simple-app
+    ECR_REPOSITORY_NAME
 
-# AZURE CI/CD Deployment with GitHub Actions
+# CI/CD Deployment with GitHub Actions with Azure
 
-## Save Pass:
+## 1. Save Pass
 
-s3cEZKH5yytiVnJ3h+eI3qhhzf9q1vNwEi6+q+WGdd+ACRCZ7JD6
+XyB08HKEZXVFMDwdMm2rZF+09KDPTzCnOe8Lk0VP6I+ACRBxx5PL
 
-## Run from Terminal:
+## 2. Run from Terminal
 
-docker build -t chickenapp.azurecr.io/chicken:latest .
+docker build -t chicken.azurecr.io/chicken:latest .
 
-docker login chickenapp.azurecr.io
+docker login chicken.azurecr.io
 
-docker push chickenapp.azurecr.io/chicken:latest
+docker push chicken.azurecr.io/chicken:latest
 
-## Deployment Steps:
+## Deployment Steps
 
 1. Build the Docker image of the Source Code
 2. Push the Docker image to Container Registry

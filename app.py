@@ -47,4 +47,6 @@ def predict():
 
 if __name__ == "__main__":
     client_app = ClientApp()
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=8080)  # local host
+    app.run(host="0.0.0.0", port=8080)  # AWS
+    app.run(host="0.0.0.0", port=80)  # Azure
