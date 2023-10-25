@@ -57,12 +57,12 @@ python app.py
 
     # Specific access
 
-    1. EC2 access : It is virtual machine
+    1. EC2 access : It is a virtual machine
 
     2. ECR: Elastic Container registry to save your docker image in AWS
 
 
-    # Description: About the deployment
+    # Description
 
     1. Build docker image of the source code
 
@@ -70,23 +70,23 @@ python app.py
 
     3. Launch Your EC2
 
-    4. Pull Your image from ECR in EC2
+    4. Pull your image from ECR in EC2
 
     5. Lauch your docker image in EC2
 
-    # Policy:
+    # Policy
 
     1. AmazonEC2ContainerRegistryFullAccess
 
     2. AmazonEC2FullAccess
 
-## 3. Create ECR Repository to store/save Docker image
+## 3. Create ECR Repository to store/save Docker Image
 
     - Save the URI: 797496359327.dkr.ecr.ap-southeast-2.amazonaws.com/chicken-disease-classification
 
 ## 4. Create EC2 Machine (Ubuntu)
 
-## 5. Open EC2 and Install Docker in EC2 Machine:
+## 5. Open EC2 and Install Docker in EC2 Machine
 
     # Optional
 
@@ -104,11 +104,11 @@ python app.py
 
     newgrp docker
 
-# 6. Configure EC2 as Self-hosted Runner
+## 6. Configure EC2 as Self-hosted Runner:
 
     Settings > Actions > Runner > New self-hosted runner > Select Linux > Execute commands one by one in your Virtual Machine
 
-# 7. Setup GitHub Secrets
+## 7. Setup GitHub Secrets
 
     AWS_ACCESS_KEY_ID
 
@@ -124,19 +124,19 @@ python app.py
 
 ## 1. Save Pass
 
-XyB08HKEZXVFMDwdMm2rZF+09KDPTzCnOe8Lk0VP6I+ACRBxx5PL
+    XyB08HKEZXVFMDwdMm2rZF+09KDPTzCnOe8Lk0VP6I+ACRBxx5PL
 
 ## 2. Run from Terminal
 
-docker build -t chicken.azurecr.io/chicken:latest .
-
-docker login chicken.azurecr.io
-
-docker push chicken.azurecr.io/chicken:latest
+    docker build -t chicken.azurecr.io/chicken:latest .
+    
+    docker login chicken.azurecr.io
+    
+    docker push chicken.azurecr.io/chicken:latest
 
 ## Deployment Steps
 
-1. Build the Docker image of the Source Code
-2. Push the Docker image to Container Registry
+1. Build the Docker Image of the source code
+2. Push the Docker Image to Container Registry
 3. Launch the Web App Server in Azure
-4. Pull the Docker image from the container registry to Web App server and run
+4. Pull the Docker Image from the Container Registry to Web App server and run
